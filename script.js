@@ -131,7 +131,7 @@ ths.forEach((th) => {
 
 render();
 
-// Search
+// Fitur Search
 function searchBar() {
   const input = document.getElementById('searchInput');
   const filter = input.value.toLowerCase();
@@ -167,7 +167,7 @@ document.getElementById('btnUpload').addEventListener('click', () => {
 
     const rows = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
-    // Asumsi kolom = Nama | NIM | IPK
+    // Kolom = Nama | NIM | IPK
     rows.slice(1).forEach((r) => {
       if (r[0] && r[1] && r[2]) {
         data.push({
@@ -181,7 +181,7 @@ document.getElementById('btnUpload').addEventListener('click', () => {
 
     saveData(data);
     render();
-    fileInput.value = ''; // reset input
+    fileInput.value = '';
     alert('Data berhasil diupload!');
   };
 
@@ -190,6 +190,7 @@ document.getElementById('btnUpload').addEventListener('click', () => {
 
 // Logic Fitur Download
 document.getElementById('btnDownload').addEventListener('click', () => {
+  //import jspdf
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
