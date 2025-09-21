@@ -89,6 +89,7 @@ tbody.addEventListener('click', (e) => {
     }
   }
 
+  //TODO search for confirm form toast
   if (delId) {
     const idNum = Number(delId);
     if (confirm('Yakin hapus data ini?')) {
@@ -153,7 +154,21 @@ document.getElementById('btnUpload').addEventListener('click', () => {
   const fileInput = document.getElementById('fileUpload');
   const file = fileInput.files[0];
   if (!file) {
-    alert('Pilih file dulu!');
+    //Penggunaan with element
+    Toastify({
+      text: 'Pilih File Terlebih Dahulu!',
+      duration: 3000,
+      destination: 'https://github.com/apvarun/toastify-js',
+      newWindow: true,
+      close: true,
+      gravity: 'top',
+      position: 'center',
+      stopOnFocus: true,
+      style: {
+        background: 'linear-gradient(to right, #4338ca, #fffff)',
+      },
+      onClick: function () {},
+    }).showToast();
     return;
   }
 
@@ -182,7 +197,20 @@ document.getElementById('btnUpload').addEventListener('click', () => {
     saveData(data);
     render();
     fileInput.value = '';
-    alert('Data berhasil diupload!');
+    Toastify({
+      text: 'File Berhasil diupload',
+      duration: 3000,
+      destination: 'https://github.com/apvarun/toastify-js',
+      newWindow: true,
+      close: true,
+      gravity: 'top', // `top` or `bottom`
+      position: 'center', // `left`, `center` or `right`
+      stopOnFocus: true, // Prevents dismissing of toast on hover
+      style: {
+        background: 'linear-gradient(to right, #4338ca, #fffff)',
+      },
+      onClick: function () {}, // Callback after click
+    }).showToast();
   };
 
   reader.readAsArrayBuffer(file);
