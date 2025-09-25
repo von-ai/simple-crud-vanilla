@@ -1,5 +1,9 @@
 const STORAGE_KEY = 'crud_mahasiswa';
 
+if (localStorage.getItem('isLoggedIn') !== 'true') {
+  window.location.href = 'login.html'; // kalau belum login, lempar balik
+}
+
 const loadData = () => JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
 const saveData = (list) =>
   localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
@@ -239,3 +243,20 @@ document.getElementById('btnDownload').addEventListener('click', () => {
 
   doc.save('data_mahasiswa.pdf');
 });
+
+// Logic login.html
+function login() {
+  const user = document.getElementById('username').value;
+  const pass = document.getElementById('password').value;
+  const errorMsg = document.getElementById('errorMsg');
+
+  const validUser = 'admin';
+  const validPass = '12345';
+
+  if (user === validUser && pass === validPass) {
+    localStorage.setItem('isLoggedIn', 'true');
+    window.location.href = 'index.html';
+  } else {
+    errorMsg.textContent = 'username atau password salah';
+  }
+}
