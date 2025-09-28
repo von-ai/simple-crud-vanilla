@@ -1,7 +1,10 @@
 const STORAGE_KEY = 'crud_mahasiswa';
 
-if (localStorage.getItem('isLoggedIn') !== 'true') {
-  window.location.href = 'login.html'; // kalau belum login, lempar balik
+if (
+  !window.location.pathname.includes('login.html') &&
+  localStorage.getItem('isLoggedIn') !== 'true'
+) {
+  window.location.href = 'login.html';
 }
 
 const loadData = () => JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
@@ -186,35 +189,60 @@ document.getElementById('btnUpload').addEventListener('click', () => {
 
     const rows = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
+    let addedCount = 0;
+    let duplicateCount = 0;
+
     // Kolom = Nama | NIM | IPK
     rows.slice(1).forEach((r) => {
       if (r[0] && r[1] && r[2]) {
-        data.push({
-          id: autoId++,
-          nama: String(r[0]),
-          nim: String(r[1]),
-          ipk: parseFloat(r[2]) || 0,
-        });
+        const nama = String(r[0]).trim();
+        const nim = String(r[1]).trim();
+        const ipk = parseFloat(r[2]) || 0;
+
+        // cek apakah NIM sudah ada di data
+        const isDuplicate = data.some((m) => m.nim === nim);
+
+        if (isDuplicate) {
+          duplicateCount++;
+        } else {
+          data.push({
+            id: autoId++,
+            nama,
+            nim,
+            ipk,
+          });
+          addedCount++;
+        }
       }
     });
 
     saveData(data);
     render();
     fileInput.value = '';
-    Toastify({
-      text: 'File Berhasil diupload',
-      duration: 3000,
-      destination: 'https://github.com/apvarun/toastify-js',
-      newWindow: true,
-      close: true,
-      gravity: 'top', // `top` or `bottom`
-      position: 'center', // `left`, `center` or `right`
-      stopOnFocus: true, // Prevents dismissing of toast on hover
-      style: {
-        background: 'linear-gradient(to right, #4338ca, #fffff)',
-      },
-      onClick: function () {}, // Callback after click
-    }).showToast();
+
+    if (addedCount > 0) {
+      Toastify({
+        text: `${addedCount} data berhasil ditambahkan`,
+        duration: 3000,
+        gravity: 'top',
+        position: 'center',
+        style: {
+          background: 'green',
+        },
+      }).showToast();
+    }
+
+    if (duplicateCount > 0) {
+      Toastify({
+        text: `${duplicateCount} data duplikat tidak ditambahkan`,
+        duration: 4000,
+        gravity: 'top',
+        position: 'center',
+        style: {
+          background: 'red',
+        },
+      }).showToast();
+    }
   };
 
   reader.readAsArrayBuffer(file);
