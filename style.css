@@ -204,3 +204,74 @@ input[type='text'][placeholder='Cari Mahasiswa']:focus {
   justify-content: center;
   padding-top: 30px;
 }
+
+/* Login Page */
+
+.login-container {
+  background: #fff;
+  padding: 32px 28px;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(44, 108, 223, 0.13);
+  width: 340px;
+  text-align: center;
+  margin: auto;
+}
+
+.login-container h2 {
+  margin-bottom: 22px;
+  font-weight: bold;
+  color: #4338ca;
+  font-size: 1.6rem;
+  letter-spacing: 0.5px;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 12px 14px;
+  margin: 10px 0;
+  border: 1.5px solid #d3e0fa;
+  border-radius: 7px;
+  background: #f8faff;
+  font-size: 1rem;
+  transition: border 0.2s;
+  box-sizing: border-box;
+}
+
+.login-container input:focus {
+  border-color: #4338ca;
+  outline: none;
+  background: #fff;
+}
+
+.login-container button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 14px;
+  background: #4338ca;
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 7px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.login-container button:hover {
+  background: #2d6cdf;
+}
+
+.login-container .error {
+  color: #e53935;
+  font-size: 14px;
+  margin-top: 12px;
+  min-height: 18px;
+  letter-spacing: 0.2px;
+}
+
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
